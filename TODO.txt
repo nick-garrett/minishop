@@ -1,0 +1,51 @@
+
+#Your Experimental Project
+You are going to build a simplified electricity retail platform. It will be deployed to a server and will be running while you are working on it locally. The mentors and other people from the office will be the customers/admins for the system you build.
+ 
+#Process
+We will be delivering the requirements in stages. You can tackle the requirements in any order you choose, but we will only release the next set of requirements once all the current requirements have been met. Try to ensure that your code is well factored and tested. We recommend using good version control practices while working on your project.
+ 
+You could assume that you are a web development consultant, doing work for a client (the mentors). The requirements below are those given to you by the client.
+##Requirements, Phase I
+- A prospective customer can ask the company to supply electricity to their property
+- In order to reduce the risk of people signing up with the wrong information, administrators must check the address against the ICP number using the registry.
+  - Connection numbers and corresponding address will be provided for all known sites
+  - This cannot be checked automatically – the Registry is an external and slow service
+  - The registry will be simulated by a simple list that will be provided to you. Admins (you) will need to check this list manually.
+  - You should assume that users are often entering incorrect information, and enforce this manual check on every new sign up.
+- At the end of Phase 1, your app should be in a deployable state. 
+  - We'll be providing you a deploy location, and expecting you to actually run your mini simulated power company using it. Mentors will be pretending to be customers, and it'll be your job to maintain your company
+  - Deployable state means that your app must cleanly load the structure of a database and load any required seed data cleanly.
+- No gems for auth!
+  - Basic user creation with just a username, no security (no passwords).
+
+An admin will be consulting this information before allowing a new energy customer to sign up to your power company. The data here will also inform how the customers energy setup should be configured.
+ 
+Register data format: XXX:YY Z (Z = register decimals)
+ 
+Address:
+43 Hanson st
+Newtown
+Wellington
+ICP: 123456789
+Registers:
+654:01 0
+654:02 0
+ 
+Address:
+14A Beach st
+Smogeville
+Auckland
+ICP: 951648237
+Registers:
+384:01 3
+ 
+Address:
+8 Woodvile road
+Leeston
+Canterbury
+ICP: 984EF5761
+Registers:
+953:01 2
+953:02 2
+953:03 3
