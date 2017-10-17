@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20171017000525) do
     t.text "line_1"
     t.text "line_2"
     t.text "line_3"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -25,8 +26,8 @@ ActiveRecord::Schema.define(version: 20171017000525) do
     t.string "last_name"
     t.string "password_digest"
     t.string "email"
-    t.text "address"
     t.string "icp"
+    t.boolean "validated", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
