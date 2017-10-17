@@ -1,0 +1,15 @@
+<%= form_with(model: @user, local: true) do |f| %>
+  <%= f.label(:first_name, 'First name: ') %>
+  <%= f.text_field :first_name, required: true %>
+  <%= f.label(:last_name, 'Last name: ') %>
+  <%= f.text_field :last_name, required: true %>
+  <%= f.label(:password, 'Password: ') %>
+  <%= f.text_field :password, required: true, type: :password %>
+  <%= f.label(:password_confirmation, 'Confirm password: ') %>
+  <%= f.text_field :password_confirmation, required: true, type: :password %>
+  <%= f.label(:email, 'Email: ') %>
+  <%= f.text_field :email, required: true, type: :email %>
+  <%= f.label(:icp, 'ICP: ') %>
+  <%= f.text_field :icp, required: true %>
+  <%= f.submit("Submit") %>
+<% end %>
