@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   validate_associated :address
   validates_presence_of :address
-  validates :icp, presence: true, uniqueness: true
+  validates :icp, presence: true, uniqueness: true, length: { minimum: 9, maximum: 9 }
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 255 },
