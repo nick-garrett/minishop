@@ -1,0 +1,16 @@
+<div class="user_info">
+    <% if user.validated %>
+      <%= "Has been validated" %>
+    <% else %>
+      <%= "Administrator must validate" %>
+    <% end %>
+  </p>
+  <p>First name: <%= user.first_name %></p>
+  <p>Last name: <%= user.last_name %></p>
+  <p>Email: <%= user.email %></p>
+  <p>ICP: <%= user.icp %></p>
+  <p>Address: </p>
+  <p><%= user.address.line_1 %></p>
+  <p><%= user.address.line_2 %></p>
+  <p><%= user.address.line_3 %></p>
+</div>
