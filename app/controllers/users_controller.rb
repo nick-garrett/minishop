@@ -26,6 +26,8 @@ class UsersController < ApplicationController
   end
 
   def new
+    @current_user ||= User.find_by(id: session[:user_id])
+    redirect_to @current_user if @current_user
     @user = User.new
     @user.address = Address.new
   end
