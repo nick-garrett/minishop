@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+ .centered{
+  text-align: center;
+ }
+
+ .user_info{
+  background-color: #efefef;
+ }
