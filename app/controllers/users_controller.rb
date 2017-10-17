@@ -10,10 +10,8 @@ class UsersController < ApplicationController
     @current_user ||= User.find_by(id: session[:user_id])
 
     redirect_to users_path if @current_user&.admin?
-    
-    if @user != @current_user
-      redirect_to '/login'
-    end
+
+    redirect_to '/login' if @user != @current_user
   end
 
   def create
