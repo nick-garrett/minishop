@@ -1,5 +1,7 @@
 <div>
-   <% @users.each do |user| %>
+ <% @users.each do |user| %>
+   <% next if user.admin? %>
+   <div class="button_bar">
     <% unless user.validated %>
       <%= form_for(user, method: :patch) do |f| %>
         <%= f.hidden_field :validated, value: true %>
@@ -8,8 +10,9 @@
     <% end %>
 
     <%= form_for(user, method: :delete) do |f| %>
-        <%= f.submit 'Delete User' %>
+      <%= f.submit 'Delete User' %>
     <% end %>
-    <%= render partial: 'user_info', locals: {user: user} %>
-  <% end %>
+  </div>
+ <%= render partial: 'user_info', locals: {user: user} %>
+<% end %>
 </div>
