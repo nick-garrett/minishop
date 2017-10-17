@@ -43,13 +43,13 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name,
-     :last_name,
-     :password,
-     :password_confirmation,
-     :email,
-     :icp,
-     :validated,
-     address_attributes: [:line_1, :line_2, :line_3])
+                                 :last_name,
+                                 :password,
+                                 :password_confirmation,
+                                 :email,
+                                 :icp,
+                                 :validated,
+                                 address_attributes: %i[line_1 line_2 line_3])
   end
 
   def address_params
