@@ -27,20 +27,6 @@
   background-color: #333;
 }
 
-.button_bar {
-  overflow: hidden;
-  background-color: #efefef;
-}
-
-.button_bar form {
-  float: left;
-  display: block;
-  text-align: center;
-  padding: 7px 8px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
 .topnav a {
   float: left;
   display: block;
@@ -50,3 +36,17 @@
   text-decoration: none;
   font-size: 17px;
 }
+
+.button_bar {
+  overflow: hidden;
+  background-color: #efefef;
+}
+
+.button_bar form {
+  float: left;
+  display: block;
+  text-align: center;
+  padding: 5px 5px;
+  text-decoration: none;
+}
+
