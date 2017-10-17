@@ -9,11 +9,13 @@
 </head>
 
 <body>
-  <div class="flash_error">
-    <% flash.each do |key, value| %>
-    <div class="alert alert-<%= key %>"><%= value %></div>
-    <% end %>
+  <div class="topnav">
+    <%= link_to('Login', login_url) unless @current_user %>
+    <%= link_to('Logout', logout_url) if @current_user %>
+    <%= link_to('Profile', user_url(@current_user)) if @current_user %>
   </div>
+  </br>
+  <%= render 'flash_error' %>
   <%= yield %>
 </body>
 </html>
