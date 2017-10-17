@@ -51,8 +51,4 @@ class UsersController < ApplicationController
                                  :validated,
                                  address_attributes: %i[line_1 line_2 line_3])
   end
-
-  def address_params
-
-  end
 end
