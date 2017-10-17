@@ -8,6 +8,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @current_user ||= User.find_by(id: session[:user_id])
+
+    redirect_to users_path if @current_user&.admin?
+    
     if @user != @current_user
       redirect_to '/login'
     end
