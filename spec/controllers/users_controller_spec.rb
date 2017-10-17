@@ -85,7 +85,28 @@ RSpec.describe UsersController, type: :controller do
 
       it 'redirects to show' do
         expect(response).to redirect_to(assigns[:user])
-        # puts flash[:error]
+      end
+    end
+
+    context 'when the details for a new user are incorrect' do
+      before do
+        post :create, params: { user: { email: 'test@',
+                                        password: 'password',
+                                        password_confirmation: 'password',
+                                        first_name:  'test',
+                                        last_name: 'test',
+                                        icp: '123123123',
+                                        address_attributes: { line_1: 'a',
+                                                              line_2: 'a',
+                                                              line_3: 'a' } } }
+      end
+
+      it 'redirects to the sign up page' do
+        expect(response).to redirect_to(new_user_url)
+      end
+
+      it 'saves an appropriate error' do
+        expect(flash[:error]).not_to be_empty
       end
     end
   end
