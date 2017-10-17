@@ -10,7 +10,12 @@ class User < ApplicationRecord
 
   before_save { email&.downcase! }
 
-  # TODO: Validate address format, presence, length??? Should address be a model?(probably not)
+  # TODO: Validate address format, length??? Should address be a model?(probably not)
+
+  # Address format
+  # street address
+  # suburb
+  # city
 
   has_secure_password
 end
