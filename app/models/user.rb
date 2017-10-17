@@ -16,5 +16,7 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  # attr_accessor :validated
+  def admin?
+    self.email == 'admin@admin.admin'
+  end
 end
