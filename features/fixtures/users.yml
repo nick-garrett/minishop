@@ -1,0 +1,17 @@
+user:
+  id: 1
+  email: user@user.user
+  password_digest: <%= BCrypt::Password.create('password') %>
+  first_name: test
+  last_name: test
+  icp: asdasdasd
+  validated: false
+
+admin:
+  id: 2
+  email: admin@admin.admin
+  password_digest: <%= BCrypt::Password.create('administrator') %>
+  first_name: test
+  last_name: test
+  icp: aaaaaaaaa
+  validated: false
