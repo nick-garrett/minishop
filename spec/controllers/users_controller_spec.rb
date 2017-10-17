@@ -112,7 +112,27 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'GET #new' do
+    context 'when user is already logged in' do
+      before do
+        session[:user_id] = users(:user).id
+        get :new
+      end
 
+      it 'redirects to the current_user' do
+        expect(response).to redirect_to(assigns[:current_user])
+      end
+    end
+
+    context 'when user is not logged in' do
+      before do
+        session[:user_id] = nil
+        get :new
+      end
+
+      it 'does not redirect' do
+        expect(response).to have_http_status(:ok)
+      end
+    end
   end
 
   describe 'PATCH #update' do
