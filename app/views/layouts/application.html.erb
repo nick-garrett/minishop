@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Minishop</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>Minishop</title>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+  <div class="flash_error">
+    <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
+  </div>
+  <%= yield %>
+</body>
 </html>
