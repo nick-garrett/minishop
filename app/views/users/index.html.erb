@@ -6,12 +6,10 @@
         <%= f.submit 'Validate user' %>
       <% end %>
     <% end %>
-    
+
     <%= form_for(user, method: :delete) do |f| %>
         <%= f.submit 'Delete User' %>
     <% end %>
     <%= render partial: 'user_info', locals: {user: user} %>
   <% end %>
 </div>
-
-<%= render 'flash_error' %>
