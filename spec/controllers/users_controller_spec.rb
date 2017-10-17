@@ -36,7 +36,7 @@ RSpec.describe UsersController, type: :controller do
       before do
         session[:user_id] = users(:user).id
         @current_user = nil
-        get :show
+        get :show, params: { id: session[:user_id] }
       end
 
       it 'shows the users info page' do
@@ -48,11 +48,11 @@ RSpec.describe UsersController, type: :controller do
       before do
         session[:user_id] = nil
         @current_user = nil
-        get :show
+        get :show, params: { id: 1 }
       end
 
       it 'redirects to the login page' do
-        expect(response).to rediect_to(login_url)
+        expect(response).to redirect_to(login_url)
       end
     end
 
@@ -60,7 +60,7 @@ RSpec.describe UsersController, type: :controller do
       before do
         session[:user_id] = users(:admin).id
         @current_user = nil
-        get :show
+        get :show, params: { id: session[:user_id] }
       end
 
       it 'redirects to the users page' do
@@ -70,7 +70,24 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'POST #create' do
+    context 'when the details for a new user are all valid' do
+      before do
+        post :create, params: { user: { email: 'test@test.test',
+                                        password: 'password',
+                                        password_confirmation: 'password',
+                                        first_name:  'test',
+                                        last_name: 'test',
+                                        icp: '123123123',
+                                        address_attributes: { line_1: 'a',
+                                                              line_2: 'a',
+                                                              line_3: 'a' } } }
+      end
 
+      it 'redirects to show' do
+        expect(response).to redirect_to(assigns[:user])
+        # puts flash[:error]
+      end
+    end
   end
 
   describe 'GET #new' do
