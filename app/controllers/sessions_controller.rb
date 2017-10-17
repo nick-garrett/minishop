@@ -3,10 +3,11 @@ class SessionsController < ApplicationController
   end
 
   def create
+    redirect_to User.find(session[:user_id]) if session[:user_id]
+
     user = User.find_by(email: params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
+    if user&.authenticate(params[:session][:password])
       session[:user_id] = user.id
-      @current_user = user
       redirect_to user
     else
       flash[:error] = 'Login credentials did not match'
