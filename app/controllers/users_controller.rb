@@ -9,7 +9,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @current_user ||= User.find_by(id: session[:user_id])
 
-    redirect_to users_path if @current_user&.admin?
+    if @current_user&.admin?
+      redirect_to users_path
+      return
+    end
 
     redirect_to '/login' if @user != @current_user
   end
@@ -27,13 +30,21 @@ class UsersController < ApplicationController
 
   def new
     @current_user ||= User.find_by(id: session[:user_id])
-    redirect_to @current_user if @current_user
+    if @current_user
+      redirect_to @current_user
+      return
+    end
     @user = User.new
     @user.address = Address.new
   end
 
   def update
     user = User.find(params[:id])
+    @current_user ||= User.find_by(id: session[:user_id])
+    unless @current_user&.admin?
+      redirect_to root_path
+      return
+    end
     user.update(user_params)
     redirect_to users_path
   end
