@@ -171,6 +171,37 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
+    context 'when a non-admin user tries to delete a user' do
+      let(:user) { users(:user) }
+      before do
+        session[:user_id] = nil
+        delete :destroy, params: { id: user.id }
+      end
 
+      it 'does not delete the user' do
+        expect(User.find_by(id: user.id)).to be_truthy
+      end
+
+      it 'redirects to the root path' do
+        expect(response).to redirect_to root_url
+      end
+    end
+
+    context 'when an admin tries to delete a user' do
+      let(:user) { users(:user) }
+
+      before do
+        session[:user_id] = users(:admin).id
+        delete :destroy, params: { id: user.id }
+      end
+
+      it 'deletes the user' do
+        expect(User.find_by(id: user.id)).to be_falsy
+      end
+
+      it 'redirects to users path' do
+        expect(response).to redirect_to users_path
+      end
+    end
   end
 end
