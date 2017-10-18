@@ -92,5 +92,15 @@ RSpec.describe SessionsController, type: :controller do
     before do
       delete :destroy
     end
+
+    context 'when a user logs out' do
+      it 'sets the logged in user to none' do
+        expect(session[:user_id]).to eq nil
+      end
+
+      it 'redirects to the login page' do
+        expect(response).to redirect_to(login_path)
+      end
+    end
   end
 end
