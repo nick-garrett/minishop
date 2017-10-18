@@ -136,11 +136,41 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'PATCH #update' do
+    context 'when a non-admin user tries to update a user' do
+      let(:user) { users(:user) }
+      before do
+        session[:user_id] = nil
+        patch :update, params: { id: user.id, user: { validated: true } }
+      end
 
+      it 'does not update the user' do
+        expect(User.find(user.id).validated).to eq false
+      end
+
+      it 'redirects to the root path' do
+        expect(response).to redirect_to root_url
+      end
+    end
+
+    context 'when an admin tries to update a user' do
+      let(:user) { users(:user) }
+
+      before do
+        session[:user_id] = users(:admin).id
+        patch :update, params: { id: user.id, user: { validated: true } }
+      end
+
+      it 'updates the user' do
+        expect(User.find(user.id).validated).to eq true
+      end
+
+      it 'redirects to users path' do
+        expect(response).to redirect_to users_path
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
 
   end
-
 end
