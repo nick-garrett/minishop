@@ -14,13 +14,13 @@ class SessionsController < ApplicationController
       redirect_to user
     else
       flash[:error] = 'Login credentials did not match'
-      redirect_to '/login'
+      redirect_to login_path
     end
   end
 
   def destroy
     session[:user_id] = nil
     @current_user = nil
-    redirect_to '/login'
+    redirect_to login_path
   end
 end
