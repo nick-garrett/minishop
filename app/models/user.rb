@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_one :address
   accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :all_blank
 
+  # TODO: look up how this line works
   validates_associated :address
   validates_presence_of :address
   validates :icp, presence: true, uniqueness: true, length: { minimum: 9, maximum: 9 }
