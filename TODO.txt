@@ -10,3 +10,7 @@
 
 - Admin sign in
 -- Currently same system as user sign in, should it be different?
+
+----- Should addresses need to be unique constrained at the model/db level?? Can this instead be validated by the admin during the manual step? 
+
+----- Added uniqueness constraints and presence constraints in the db level
