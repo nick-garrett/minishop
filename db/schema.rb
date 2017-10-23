@@ -13,20 +13,20 @@
 ActiveRecord::Schema.define(version: 20171017000525) do
 
   create_table "addresses", force: :cascade do |t|
-    t.text "line_1"
-    t.text "line_2"
-    t.text "line_3"
-    t.integer "user_id"
+    t.text "line_1", null: false
+    t.text "line_2", null: false
+    t.text "line_3", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "password_digest"
-    t.string "email"
-    t.string "icp"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "password_digest", null: false
+    t.string "email", null: false
+    t.string "icp", null: false
     t.boolean "validated", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
