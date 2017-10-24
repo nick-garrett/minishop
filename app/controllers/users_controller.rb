@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :current_user!, only: %i[index show new update destroy]
-  before_action :user!, only: %i[show create update destroy]
+  before_action :find_current_user, only: %i[index show new update destroy]
+  before_action :find_user, only: %i[show create update destroy]
 
   def index
     @users = User.all
@@ -11,10 +11,11 @@ class UsersController < ApplicationController
   def show
     if @current_user&.admin?
       redirect_to users_path
+    elsif @user
+      redirect_to @user unless @user == @current_user
     else
-      redirect_to login_path unless @user == @current_user
-      # flash message
-      # TODO: multiple redirects for the case where someone is/isn't logged in
+      redirect_to login_path
+      flash[:error] = 'You must be logged in to view this page'
     end
   end
 
@@ -32,7 +33,7 @@ class UsersController < ApplicationController
   def new
     if @current_user
       redirect_to @current_user
-      # flash message
+      flash[:error] = 'You must logout before you can login again'
     else
       @user = User.new
       @user.address = Address.new
@@ -43,20 +44,20 @@ class UsersController < ApplicationController
     if @current_user&.admin?
       @user.update(user_params)
       redirect_to users_path
-      # flash message
     else
       redirect_to root_path
+      flash[:error] = 'You must be an admin to update a user'
     end
   end
 
   def destroy
     # admin can't destroy themselves
     if @current_user&.admin?
-      @user.destroy
+      @user.destroy unless @user.admin?
       redirect_to users_path
     else
       redirect_to root_path
-      # flash message
+      flash[:error] = 'You must be an admin to delete a user'
     end
   end
 
@@ -72,11 +73,11 @@ class UsersController < ApplicationController
   end
 
   # don't use bang
-  def current_user!
+  def find_current_user
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
-  def user!
+  def find_user
     @user = User.find_by(id: params[:id])
   end
 end
