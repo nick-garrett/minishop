@@ -49,3 +49,21 @@ Registers:
 953:01 2
 953:02 2
 953:03 3
+
+
+
+Your Experimental Project RETURNS
+So your electricity platform has been running for a while, you have a bunch of customers and admins and that’s all going well. So now you realise that you should probably start trying to make some money. To do that we need to charge customers for the electricity that they are using. So that is what this stage is about. 
+Requirements, Phase II
+  ● Your deployed instance must retain any data that has been inserted into it(it is serving an actual company)
+  ● Admins should be able to enter index kWh readings 
+    ○ An index read is a cumulative read(like reading the dial on a dumb meter)
+    ○ Assume that meters will never ‘tickover’. They can keep increasing forever without overflow
+    ○ Reads never go down, they only increase or stay the same
+    ○ Some customers have meters that display different amounts of decimal places(max of 4 decimal places)
+    ○The decimal place information can be added whenever. Up to you
+  ● Customers should be able to enter index kWh readings
+    ○We should show the correct number of decimal places to the customer when they enter the reads
+  ● We want to be able to invoice a customer based on their electricity usage since the last invoice(a fixed price per kWh).
+    ○ An admin can set the price per kWh
+    ○ The price per kWh to use for an invoice is the current price at the time the invoice is generated.
