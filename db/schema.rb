@@ -10,13 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171017000525) do
+ActiveRecord::Schema.define(version: 20171024014540) do
 
   create_table "addresses", force: :cascade do |t|
     t.text "line_1", null: false
     t.text "line_2", null: false
     t.text "line_3", null: false
     t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.decimal "usage", precision: 10, scale: 4, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", default: 1, null: false
+  end
+
+  create_table "readings", force: :cascade do |t|
+    t.decimal "usage", precision: 10, scale: 4, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
