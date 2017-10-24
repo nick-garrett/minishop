@@ -13,7 +13,7 @@ RSpec.describe SessionsController, type: :controller do
         get :new
       end
 
-      it 'redirects to logged in user page' do
+      it 'redirects to logged in users page' do
         expect(response).to redirect_to(user)
       end
     end
@@ -33,10 +33,9 @@ RSpec.describe SessionsController, type: :controller do
   describe 'POST #create' do
     let(:email) { user.email }
     let(:password) { 'password' }
+    let(:users_count) { User.count }
 
     context 'when a user is already logged in' do
-      let(:users_count) { User.count }
-
       before do
         session[:user_id] = user.id
         post :create, params: { session: { email: email, password: password } }
@@ -44,10 +43,6 @@ RSpec.describe SessionsController, type: :controller do
 
       it 'redirects to the users page' do
         expect(response).to redirect_to(user)
-      end
-
-      it 'does not increase the number of users' do
-        expect(users_count).to eq(User.count)
       end
     end
 
