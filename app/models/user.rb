@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   has_one :address
+  has_many :invoices
 
   accepts_nested_attributes_for :address, allow_destroy: true, reject_if: :all_blank
 
