@@ -1,26 +1,25 @@
 class UsersController < ApplicationController
+  before_action :current_user!, only: %i[index show new update destroy]
+  before_action :user!, only: %i[show create update destroy]
+
   def index
     @users = User.all
-    @current_user ||= User.find_by(id: session[:user_id])
 
     redirect_to root_path unless @current_user&.admin?
   end
 
   def show
-    @user = User.find(params[:id])
-    @current_user ||= User.find_by(id: session[:user_id])
-
     if @current_user&.admin?
       redirect_to users_path
-      return
+    else
+      redirect_to login_path unless @user == @current_user
+      # flash message
+      # TODO: multiple redirects for the case where someone is/isn't logged in
     end
-
-    redirect_to '/login' unless @user == @current_user
   end
 
   def create
     @user = User.new(user_params)
-
     if @user.save
       session[:user_id] = @user.id
       redirect_to @user
@@ -31,40 +30,34 @@ class UsersController < ApplicationController
   end
 
   def new
-    @current_user ||= User.find_by(id: session[:user_id])
-
     if @current_user
       redirect_to @current_user
-      return
+      # flash message
+    else
+      @user = User.new
+      @user.address = Address.new
     end
-    @user = User.new
-    @user.address = Address.new
   end
 
   def update
-    user = User.find(params[:id])
-    @current_user ||= User.find_by(id: session[:user_id])
-
-    unless @current_user&.admin?
+    if @current_user&.admin?
+      @user.update(user_params)
+      redirect_to users_path
+      # flash message
+    else
       redirect_to root_path
-      return
     end
-
-    user.update(user_params)
-    redirect_to users_path
   end
 
   def destroy
-    user = User.find(params[:id])
-    @current_user ||= User.find_by(id: session[:user_id])
-
-    unless @current_user&.admin?
+    # admin can't destroy themselves
+    if @current_user&.admin?
+      @user.destroy
+      redirect_to users_path
+    else
       redirect_to root_path
-      return
+      # flash message
     end
-
-    user.destroy
-    redirect_to users_path
   end
 
   def user_params
@@ -76,5 +69,14 @@ class UsersController < ApplicationController
                                  :icp,
                                  :validated,
                                  address_attributes: %i[line_1 line_2 line_3])
+  end
+
+  # don't use bang
+  def current_user!
+    @current_user ||= User.find_by(id: session[:user_id])
+  end
+
+  def user!
+    @user = User.find_by(id: params[:id])
   end
 end
