@@ -1,6 +1,3 @@
-- User sign in
--- Check if user exists with same hashed password and has the same email
-
 - Admin sign in
 -- Currently same system as user sign in, should it be different?
 
@@ -9,3 +6,7 @@
 ----- Added uniqueness constraints and presence constraints in the db level
 
 ---- Validates_associated checks whether the associated object is itself valid. Useful for nested atrtributes
+
+----------------------------
+DO SECOND STAGE AS TEST DRIVEN DEVELOPMENT
+
