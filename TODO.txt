@@ -1,9 +1,9 @@
 - User sign up
 -- Name
--- Email
+-- Email - unique
 -- Password
--- Address
--- ICP
+-- Address - unique??
+-- ICP - unique??
 
 - User sign in
 -- Check if user exists with same hashed password and has the same email
@@ -11,6 +11,8 @@
 - Admin sign in
 -- Currently same system as user sign in, should it be different?
 
------ Should addresses need to be unique constrained at the model/db level?? Can this instead be validated by the admin during the manual step? 
+----- Should addresses/icp need to be unique constrained at the model/db level?? Can this instead be validated by the admin during the manual step? 
 
 ----- Added uniqueness constraints and presence constraints in the db level
+
+---- Validates_associated checks whether the associated object is itself valid. Useful for nested atrtributes
