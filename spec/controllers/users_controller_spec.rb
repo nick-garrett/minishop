@@ -8,7 +8,6 @@ RSpec.describe UsersController, type: :controller do
     context 'when the user is logged in as an admin' do
       before do
         session[:user_id] = users(:admin).id
-        @current_user = nil
         get :index
       end
 
@@ -20,12 +19,10 @@ RSpec.describe UsersController, type: :controller do
     context 'when the user is not logged in as an admin' do
       before do
         session[:user_id] = users(:user).id
-        @current_user = nil
         get :index
       end
 
       it 'redirects to the root path' do
-        expect(response).not_to have_http_status(:ok)
         expect(response).to redirect_to root_path
       end
     end
@@ -83,6 +80,8 @@ RSpec.describe UsersController, type: :controller do
                                                               line_3: 'a' } } }
       end
 
+      # it makes a user
+
       it 'redirects to show' do
         expect(response).to redirect_to(assigns[:user])
       end
@@ -138,13 +137,14 @@ RSpec.describe UsersController, type: :controller do
   describe 'PATCH #update' do
     context 'when a non-admin user tries to update a user' do
       let(:user) { users(:user) }
+
       before do
         session[:user_id] = nil
         patch :update, params: { id: user.id, user: { validated: true } }
       end
 
       it 'does not update the user' do
-        expect(User.find(user.id).validated).to eq false
+        expect(user.reload.validated).to eq false
       end
 
       it 'redirects to the root path' do
@@ -161,7 +161,7 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'updates the user' do
-        expect(User.find(user.id).validated).to eq true
+        expect(user.reload.validated).to eq true
       end
 
       it 'redirects to users path' do
@@ -177,7 +177,8 @@ RSpec.describe UsersController, type: :controller do
         session[:user_id] = nil
         delete :destroy, params: { id: user.id }
       end
-
+      # user.reload when user destroyed?
+      # persisted method
       it 'does not delete the user' do
         expect(User.find_by(id: user.id)).to be_truthy
       end
