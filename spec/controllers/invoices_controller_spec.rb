@@ -17,11 +17,11 @@ RSpec.describe InvoicesController, type: :controller do
       end
 
       it 'redirects to current user' do
-        pending 'pending test'
+        expect(response).to redirect_to current_user
       end
 
       it 'has correct flash message' do
-        pending 'pending test'
+        expect(flash[:error]).to include 'You cannot view the invoices for another user.'
       end
     end
 
