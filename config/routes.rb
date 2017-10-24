@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :users do
-    resource :invoices
+    resources :invoices
   end
 
   root to: redirect('/login')
