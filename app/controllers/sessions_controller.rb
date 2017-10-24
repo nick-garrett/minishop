@@ -4,11 +4,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if session[:user_id]
-      redirect_to User.find(session[:user_id])
-      return
-    end
-    user = User.find_by(email: params[:session][:email].downcase)
+    return redirect_to User.find(session[:user_id]) if session[:user_id]
+
+    user = User.find_by(email: params[:session][:email])
+
     if user&.authenticate(params[:session][:password])
       session[:user_id] = user.id
       redirect_to user
