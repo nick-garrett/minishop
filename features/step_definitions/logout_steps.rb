@@ -1,4 +1,4 @@
-Given(/^I am logged in$/) do
+Given(/^I am already logged in$/) do
   visit login_url
   fill_in 'session[email]', with: 'user@user.user'
   fill_in 'session[password]', with: 'password'
