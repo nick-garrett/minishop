@@ -1,7 +1,7 @@
 Given(/^I am an admin$/) do
   visit login_url
   fill_in 'session[email]', with: 'admin@admin.admin'
-  fill_in 'session[password]', with: 'administrator'
+  fill_in 'session[password]', with: 'thisisthepassword'
   click_button 'Login'
 end
 
@@ -14,5 +14,5 @@ When(/^I validate a user$/) do
 end
 
 Then(/^the user is validated$/) do
-  expect(page).to have_content('Has been validated')
+  expect(page).to have_content 'Has been validated'
 end
