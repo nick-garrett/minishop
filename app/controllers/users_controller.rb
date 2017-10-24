@@ -72,7 +72,6 @@ class UsersController < ApplicationController
                                  address_attributes: %i[line_1 line_2 line_3])
   end
 
-  # don't use bang
   def find_current_user
     @current_user ||= User.find_by(id: session[:user_id])
   end
