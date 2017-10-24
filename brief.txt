@@ -63,7 +63,7 @@ Requirements, Phase II
     ○ Some customers have meters that display different amounts of decimal places(max of 4 decimal places)
     ○The decimal place information can be added whenever. Up to you
   ● Customers should be able to enter index kWh readings
-    ○We should show the correct number of decimal places to the customer when they enter the reads
+    ○ We should show the correct number of decimal places to the customer when they enter the reads
   ● We want to be able to invoice a customer based on their electricity usage since the last invoice(a fixed price per kWh).
     ○ An admin can set the price per kWh
     ○ The price per kWh to use for an invoice is the current price at the time the invoice is generated.
