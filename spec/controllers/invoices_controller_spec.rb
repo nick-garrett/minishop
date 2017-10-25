@@ -6,6 +6,7 @@ RSpec.describe InvoicesController, type: :controller do
 
   let(:user) { users(:user) }
   let(:current_user) { users(:user) }
+  let(:invoice) { invoices(:first) }
 
   describe 'GET #index' do
     context 'when the wrong user is logged in' do
@@ -21,7 +22,7 @@ RSpec.describe InvoicesController, type: :controller do
       end
 
       it 'has correct flash message' do
-        expect(flash[:error]).to include 'You cannot view the invoices for another user.'
+        expect(flash[:error]).to include 'You cannot view invoices for another user.'
       end
     end
 
@@ -29,12 +30,27 @@ RSpec.describe InvoicesController, type: :controller do
       let(:current_user) { users(:user) }
 
       before do
-        session[:user_id] = users(:user).id
+        session[:user_id] = current_user.id
         get :index, params: { user_id: user.id }
       end
 
       it 'does not redirect' do
         expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'when no user is logged in' do
+      before do
+        session[:user_id] = nil
+        get :index, params: { user_id: user.id }
+      end
+
+      it 'redirects to login page' do
+        expect(response).to redirect_to login_path
+      end
+
+      it 'has appropriate error message' do
+        expect(flash[:error]).to include 'You must be logged in to view invoices.'
       end
     end
   end
@@ -45,15 +61,30 @@ RSpec.describe InvoicesController, type: :controller do
 
       before do
         session[:user_id] = current_user.id
-        get :show, params: { user_id: user.id, id: 1 }
+        get :show, params: { user_id: user.id, id: invoice.id }
       end
 
       it 'redirects to current user' do
-        pending 'pending test'
+        expect(response).to redirect_to current_user
       end
 
       it 'has correct flash message' do
-        pending 'pending test'
+        expect(flash[:error]).to include 'You cannot view invoices for another user.'
+      end
+    end
+
+    context 'when no user is logged in' do
+      before do
+        session[:user_id] = nil
+        get :show, params: { user_id: user.id, id: invoice.id }
+      end
+
+      it 'redirects to login page' do
+        expect(response).to redirect_to login_path
+      end
+
+      it 'has appropriate error message' do
+        expect(flash[:error]).to include 'You must be logged in to view invoices.'
       end
     end
 
