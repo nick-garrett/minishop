@@ -31,9 +31,26 @@ class InvoicesController < ApplicationController
   end
 
   def create
+    if @current_user.nil?
+      redirect_to login_path
+      flash[:error] = 'You must be logged in to create an invoice.'
+    elsif @user != @current_user
+      redirect_to users_path(@current_user)
+      flash[:error] = 'You cannot create an invoice for another user.'
+    else
+      # create a new invoice somehow
+      render 'index'
+    end
   end
 
   def new
+    if @current_user.nil?
+      redirect_to login_path
+      flash[:error] = 'You must be logged in to create an invoice.'
+    elsif @user != @current_user
+      redirect_to users_path(@current_user)
+      flash[:error] = 'You cannot create an invoice for another user.'
+    end
   end
 
   def find_current_user
