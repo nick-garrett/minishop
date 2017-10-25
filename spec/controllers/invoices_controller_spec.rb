@@ -35,7 +35,7 @@ RSpec.describe InvoicesController, type: :controller do
       end
 
       it 'does not redirect' do
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status :ok
       end
     end
 
@@ -100,7 +100,7 @@ RSpec.describe InvoicesController, type: :controller do
         end
 
         it 'does not redirect' do
-          expect(response).to have_http_status(:ok)
+          expect(response).to have_http_status :ok
         end
       end
 
@@ -122,34 +122,81 @@ RSpec.describe InvoicesController, type: :controller do
   end
 
   describe 'POST #create' do
+    before do
+      session[:user_id] = current_user&.id
+      post :create, params: { user_id: user.id }
+    end
+
     context 'when the wrong user is logged in' do
+      let(:current_user) { users(:user_two) }
+
       it 'redirects to the current user' do
-        pending
+        expect(response).to redirect_to users_path(current_user)
       end
 
       it 'has appropriate error' do
-        pending
+        expect(flash[:error]).to include 'You cannot create an invoice for another user.'
       end
     end
 
     context 'when no user is logged in' do
+      let(:current_user) { nil }
+
       it 'redirects to the login page' do
-        pending
+        expect(response).to redirect_to login_path
       end
 
       it 'has appropriate error' do
-        pending
+        expect(flash[:error]).to include 'You must be logged in to create an invoice.'
       end
     end
 
     context 'when the correct user is logged in' do
+      let(:current_user) { users(:user) }
+
+      pending
       it 'does not redirect' do
-        pending
+        expect(response).to have_http_status :ok
       end
     end
   end
 
   describe 'GET #new' do
-    pending
+    before do
+      session[:user_id] = current_user&.id
+      get :new, params: { user_id: user.id }
+    end
+
+    context 'when the wrong user is logged in' do
+      let(:current_user) { users(:user_two) }
+
+      it 'redirects to the current user' do
+        expect(response).to redirect_to users_path(current_user)
+      end
+
+      it 'has appropriate error' do
+        expect(flash[:error]).to include 'You cannot create an invoice for another user.'
+      end
+    end
+
+    context 'when no user is logged in' do
+      let(:current_user) { nil }
+
+      it 'redirects to the login page' do
+        expect(response).to redirect_to login_path
+      end
+
+      it 'has appropriate error' do
+        expect(flash[:error]).to include 'You must be logged in to create an invoice.'
+      end
+    end
+
+    context 'when the correct user is logged in' do
+      let(:current_user) { users(:user) }
+
+      it 'does not redirect' do
+        expect(response).to have_http_status :ok
+      end
+    end
   end
 end
