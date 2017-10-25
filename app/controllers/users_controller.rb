@@ -11,11 +11,12 @@ class UsersController < ApplicationController
   def show
     if @current_user&.admin?
       redirect_to users_path
-    elsif @current_user
-      redirect_to @current_user unless @user == @current_user
-    else
+    elsif !@current_user
       redirect_to login_path
       flash[:error] = 'You must be logged in to view this page'
+    elsif @user != @current_user
+      redirect_to @current_user
+      flash[:error] = 'You cannot view another users profile'
     end
   end
 
