@@ -111,25 +111,45 @@ RSpec.describe InvoicesController, type: :controller do
         end
 
         it 'redirects to the current user' do
-          pending 'pending test'
+          expect(response).to redirect_to current_user
         end
 
         it 'has appropriate error' do
-          pending 'pending test'
+          expect(flash[:error]).to include "Invoice doesn't exist."
         end
       end
     end
   end
 
   describe 'POST #create' do
+    context 'when the wrong user is logged in' do
+      it 'redirects to the current user' do
+        pending
+      end
 
+      it 'has appropriate error' do
+        pending
+      end
+    end
+
+    context 'when no user is logged in' do
+      it 'redirects to the login page' do
+        pending
+      end
+
+      it 'has appropriate error' do
+        pending
+      end
+    end
+
+    context 'when the correct user is logged in' do
+      it 'does not redirect' do
+        pending
+      end
+    end
   end
 
   describe 'GET #new' do
-
-  end
-
-  describe '' do
-
+    pending
   end
 end
