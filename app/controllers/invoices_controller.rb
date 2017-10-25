@@ -16,7 +16,11 @@ class InvoicesController < ApplicationController
 
   def show
     if @current_user&.id == @user&.id
-      
+      invoice = @current_user.invoices.find_by(id: params[:id])
+      unless invoice
+        redirect_to @current_user
+        flash[:error] = "Invoice doesn't exist."
+      end
     elsif @current_user.nil?
       redirect_to login_path
       flash[:error] = 'You must be logged in to view invoices.'
