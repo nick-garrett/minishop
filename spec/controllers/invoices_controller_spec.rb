@@ -53,6 +53,19 @@ RSpec.describe InvoicesController, type: :controller do
         expect(flash[:error]).to include 'You must be logged in to view invoices.'
       end
     end
+
+    context 'when an admin is logged in' do
+      let(:current_user) { users(:admin) }
+
+      before do
+        session[:user_id] = current_user.id
+        get :index, params: { user_id: user.id }
+      end
+
+      it 'does not redirect' do
+        expect(response).to have_http_status :ok
+      end
+    end
   end
 
   describe 'GET #show' do
@@ -119,15 +132,28 @@ RSpec.describe InvoicesController, type: :controller do
         end
       end
     end
+
+    context 'when an admin is logged in' do
+      let(:current_user) { users(:admin) }
+
+      before do
+        session[:user_id] = current_user.id
+        get :show, params: { user_id: user.id, id: invoice.id }
+      end
+
+      it 'does not redirect' do
+        expect(response).to have_http_status :ok
+      end
+    end
   end
 
   describe 'POST #create' do
     before do
       session[:user_id] = current_user&.id
-      post :create, params: { user_id: user.id }
+      post :create, params: { user_id: user.id, invoice: { price: 123456, usage: 1234456 } }
     end
 
-    context 'when the wrong user is logged in' do
+    context 'when a non admin is logged in' do
       let(:current_user) { users(:user_two) }
 
       it 'redirects to the current user' do
@@ -135,7 +161,7 @@ RSpec.describe InvoicesController, type: :controller do
       end
 
       it 'has appropriate error' do
-        expect(flash[:error]).to include 'You cannot create an invoice for another user.'
+        expect(flash[:error]).to include 'You must be logged in as an admin to create an invoice.'
       end
     end
 
@@ -147,16 +173,21 @@ RSpec.describe InvoicesController, type: :controller do
       end
 
       it 'has appropriate error' do
-        expect(flash[:error]).to include 'You must be logged in to create an invoice.'
+        expect(flash[:error]).to include 'You must be logged in as an admin to create an invoice.'
       end
     end
 
-    context 'when the correct user is logged in' do
-      let(:current_user) { users(:user) }
+    context 'when an admin is logged in' do
+      let(:current_user) { users(:admin) }
+      let!(:invoice_count) { user.invoices.count }
 
-      pending
-      it 'does not redirect' do
-        expect(response).to have_http_status :ok
+      it 'redirects to new invoice' do
+        expect(response).to redirect_to(user_invoice_url(user.id, assigns[:invoice]))
+      end
+
+      it 'increases the amount of invoices' do
+        expect { request }.to change { user.invoices.count }.by 1
+        # expect(user.invoices.reload.count).to eq invoice_count + 1
       end
     end
   end
@@ -167,7 +198,7 @@ RSpec.describe InvoicesController, type: :controller do
       get :new, params: { user_id: user.id }
     end
 
-    context 'when the wrong user is logged in' do
+    context 'when a non-admin is logged in' do
       let(:current_user) { users(:user_two) }
 
       it 'redirects to the current user' do
@@ -175,7 +206,7 @@ RSpec.describe InvoicesController, type: :controller do
       end
 
       it 'has appropriate error' do
-        expect(flash[:error]).to include 'You cannot create an invoice for another user.'
+        expect(flash[:error]).to include 'You must be logged in as an admin to create an invoice.'
       end
     end
 
@@ -187,12 +218,12 @@ RSpec.describe InvoicesController, type: :controller do
       end
 
       it 'has appropriate error' do
-        expect(flash[:error]).to include 'You must be logged in to create an invoice.'
+        expect(flash[:error]).to include 'You must be logged in as an admin to create an invoice.'
       end
     end
 
-    context 'when the correct user is logged in' do
-      let(:current_user) { users(:user) }
+    context 'when an admin is logged in' do
+      let(:current_user) { users(:admin) }
 
       it 'does not redirect' do
         expect(response).to have_http_status :ok
