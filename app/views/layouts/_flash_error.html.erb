@@ -1,4 +1,4 @@
-<div class="flash_error">
+<div id="flash_messages" class="flash_error">
     <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
