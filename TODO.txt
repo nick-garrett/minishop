@@ -7,6 +7,8 @@
 
 ---- Validates_associated checks whether the associated object is itself valid. Useful for nested atrtributes
 
+-- TODO: remove nested form and nested attributes
+
 ----------------------------
 DO SECOND STAGE AS TEST DRIVEN DEVELOPMENT
 
