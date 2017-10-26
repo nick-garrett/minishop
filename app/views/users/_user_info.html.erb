@@ -1,10 +1,9 @@
 <div class="user_info">
-    <% if user.validated %>
-      <%= "Has been validated" %>
-    <% else %>
-      <%= "Administrator must validate" %>
-    <% end %>
-  </p>
+  <% if user.validated %>
+    Has been validated
+  <% else %>
+    Administrator must validate
+  <% end %>
   <p>First name: <%= user.first_name %></p>
   <p>Last name: <%= user.last_name %></p>
   <p>Email: <%= user.email %></p>
