@@ -12,7 +12,7 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'loads the index page' do
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status :ok
       end
     end
 
@@ -37,7 +37,7 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'shows the users info page' do
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status :ok
       end
     end
 
@@ -49,7 +49,7 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'redirects to the login page' do
-        expect(response).to redirect_to(login_url)
+        expect(response).to redirect_to login_url
       end
     end
 
@@ -60,8 +60,8 @@ RSpec.describe UsersController, type: :controller do
         get :show, params: { id: session[:user_id] }
       end
 
-      it 'redirects to the users page' do
-        expect(response).to redirect_to(users_url)
+      it 'does not redirect' do
+        expect(response).to have_http_status :ok
       end
     end
   end
@@ -80,10 +80,8 @@ RSpec.describe UsersController, type: :controller do
                                                               line_3: 'a' } } }
       end
 
-      # it makes a user
-
       it 'redirects to show' do
-        expect(response).to redirect_to(assigns[:user])
+        expect(response).to redirect_to assigns[:user]
       end
     end
 
@@ -101,7 +99,7 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'redirects to the sign up page' do
-        expect(response).to redirect_to(new_user_url)
+        expect(response).to redirect_to new_user_url
       end
 
       it 'saves an appropriate error' do
@@ -129,7 +127,7 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it 'does not redirect' do
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status :ok
       end
     end
   end
