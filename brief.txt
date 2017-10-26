@@ -61,7 +61,7 @@ Requirements, Phase II
     ○ Assume that meters will never ‘tickover’. They can keep increasing forever without overflow
     ○ Reads never go down, they only increase or stay the same
     ○ Some customers have meters that display different amounts of decimal places(max of 4 decimal places)
-    ○The decimal place information can be added whenever. Up to you
+    ○ The decimal place information can be added whenever. Up to you
   ● Customers should be able to enter index kWh readings
     ○ We should show the correct number of decimal places to the customer when they enter the reads
   ● We want to be able to invoice a customer based on their electricity usage since the last invoice(a fixed price per kWh).
