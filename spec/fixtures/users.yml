@@ -1,5 +1,4 @@
 user:
-  id: 2
   email: user@user.user
   password_digest: <%= BCrypt::Password.create('password') %>
   first_name: test
@@ -8,7 +7,6 @@ user:
   validated: false
 
 admin:
-  id: 1
   email: admin@admin.admin
   password_digest: <%= BCrypt::Password.create('administrator') %>
   first_name: test
@@ -17,7 +15,6 @@ admin:
   validated: false
 
 user_two:
-  id: 3
   email: a@a.a
   password_digest: <%= BCrypt::Password.create('password') %>
   first_name: a

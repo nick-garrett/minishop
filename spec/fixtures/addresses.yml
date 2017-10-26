@@ -2,10 +2,16 @@ address_1:
   line_1: 'a'
   line_2: 'a'
   line_3: 'a'
-  user_id: 1
+  user: user
 
 address_2:
   line_1: 'b'
   line_2: 'b'
   line_3: 'b'
-  user_id: 2
+  user: user_two
+
+address_3:
+  line_1: 'c'
+  line_2: 'c'
+  line_3: 'c'
+  user: admin
