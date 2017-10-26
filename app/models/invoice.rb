@@ -4,18 +4,21 @@ class Invoice < ApplicationRecord
   belongs_to :user
 
   validate :price_validation_before_cast, :usage_validation_before_cast
+  # validates :price_before_type_cast, format: VALID_PRICE_REGEX
   validates :price, presence: true
   validates :usage, presence: true
 
+  private
+  # TODO: check that before and after are the same
   def price_validation_before_cast
     return unless price
     errors.add(:price, 'is invalid') unless price_before_type_cast.to_s.match?(VALID_PRICE_REGEX)
-    errors.add(:price, 'must be greater than 0') unless price_before_type_cast.positive?
+    errors.add(:price, 'must be greater than 0') unless price_before_type_cast.to_f.positive?
   end
 
   def usage_validation_before_cast
     return unless usage
     errors.add(:usage, 'is invalid') unless usage_before_type_cast.to_s.match?(VALID_USAGE_REGEX)
-    errors.add(:usage, 'must be greater than 0') unless usage_before_type_cast.positive?
+    errors.add(:usage, 'must be greater than 0') unless usage_before_type_cast.to_f.positive?
   end
 end
