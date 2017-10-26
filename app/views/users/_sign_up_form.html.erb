@@ -1,0 +1,43 @@
+<div class="centered">
+  <%= form_for(@user, remote: true, class: 'new-form') do |f| %>
+    <%= f.label :first_name, 'First name: ' %>
+    <span id='first_name-error'></span>
+    <%= f.text_field :first_name, required: true %>
+
+    <%= f.label :last_name, 'Last name: ' %>
+    <span id='last_name-error'></span>
+    <%= f.text_field :last_name, required: true %>
+
+    <%= f.label :password, 'Password: ' %>
+    <span id='password-error'></span>
+    <%= f.text_field :password, required: true, type: :password %>
+
+    <%= f.label :password_confirmation, 'Confirm password: ' %>
+    <span id='password_confirmation-error'></span>
+    <%= f.text_field :password_confirmation, required: true, type: :password %>
+
+    <%= f.label :email, 'Email: ' %>
+    <span id='email-error'></span>
+    <%= f.text_field :email, required: true, type: :email %>
+
+    <%= f.label :icp, 'ICP: ' %>
+    <span id='icp-error'></span>
+    <%= f.text_field :icp, required: true %>
+
+    <%= f.fields_for :address do |address_form|%>
+      <%= address_form.label :line_1, 'Street address: ' %>
+      <span id='line_1-error'></span>
+      <%= address_form.text_field :line_1, required: true %>
+
+      <%= address_form.label :line_2, 'Suburb: ' %>
+      <span id='line_2-error'></span>
+      <%= address_form.text_field :line_2, required: true %>
+
+      <%= address_form.label :line_3, 'City: ' %>
+      <span id='line_3-error'></span>
+      <%= address_form.text_field :line_3, required: true %>
+
+    <% end %>
+    <%= f.submit("Submit") %>
+  <% end %>
+</div>
