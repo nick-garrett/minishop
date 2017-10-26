@@ -14,8 +14,13 @@
  *= require_self
  */
 
+ .error {
+  color: #FF0000;
+ }
+
  .centered {
   text-align: center;
+  padding: 10;
 }
 
 .user_info {
@@ -50,3 +55,25 @@
   text-decoration: none;
 }
 
+.new-form {
+  text-align: center;
+  padding: 10;
+}
+
+.centered label {
+  float: left;
+  clear: left;
+  display:inline
+}
+
+.centered input {
+  float: left;
+  clear: left;
+  display:inline
+}
+
+.centered span {
+  float: left;
+  clear: left;
+  display:inline
+}
