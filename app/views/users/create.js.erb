@@ -1,0 +1,8 @@
+$(".error").remove();
+<% flash.each do |type, message| %>
+  $("#flash_messages").html("<%= message %>")
+<% end %>
+
+<% @user.errors.each do |key, value| %>
+  $("#<%= j key.to_s %>-error").append('<div class="error"><%= j key.to_s %>: <%= j value.to_s %></div>')
+<% end %>
